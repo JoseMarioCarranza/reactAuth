@@ -1,4 +1,5 @@
-import React from 'react'
+import '@/styles/form.css'
+import logo from '@/assets/react.svg'
 
 const Signup = () => {
     return (
