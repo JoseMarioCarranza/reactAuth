@@ -6,6 +6,10 @@ $menu-color: #3d3d3d;
     letter-spacing: 2px;
 }
 
+@mixin header-border($size: 2px) {
+    border-bottom: solid $size $menu-color;
+}
+
 .header {
     background-color: #dadada;
     display: flex;
@@ -26,5 +30,13 @@ $menu-color: #3d3d3d;
 
     &__item-link {
         @include header-link;
+
+        &--is-active {
+            @include header-border($size: 3px)
+        }
+
+        &:hover {
+            @include header-border()
+        }
     }
 }
