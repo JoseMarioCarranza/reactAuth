@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { loginUserService } from '@/services/userServices'
 import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from '@/Hooks/useAuthContext'
 import '@/styles/form.css'
 import logo from '@/assets/react.svg'
 
@@ -13,9 +14,11 @@ const Login = () => {
 
     const navigate = useNavigate()
 
+    const { login } = useAuthContext()
+
     /**
-     * The function onSubmit attempts to log in a user using a login service and navigates to the home page
-     * upon successful authentication.
+     * The onSubmit function attempts to authenticate a user using loginUserService and navigates to the
+     * home page upon successful authentication.
      */
     const onSubmit = async data => {
         try {
@@ -23,12 +26,8 @@ const Login = () => {
             if (response.status == 200) {
                 navigate('/')
                 console.log('Usuario autenticado exitosamente')
-                /* `localStorage.setItem('token', response.data.token)` is storing the authentication
-                token received from the login service in the browser's localStorage. This allows the
-                token to be saved locally on the user's device, making it accessible even after the
-                user closes the browser or refreshes the page. */
-                localStorage.setItem('token', response.data.token)
-                console.log(response.data.token)
+                login(response.data.token)
+                //console.log(response.data.token)
             }
         } catch (error) {
             console.log('Ocurrio un error en Login', error)
